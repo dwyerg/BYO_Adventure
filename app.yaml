@@ -1,0 +1,21 @@
+#app.yaml
+
+runtime: python27
+api_version: 1
+threadsafe: True
+#/ = the character /
+# . = any characters
+# * = repeated between 0 and infitity times
+
+
+handlers:
+ #redirects to where the files actually live on the server
+ #make new directories for static content
+- url: /.* #regex
+  script: main.app
+#-url:/r
+#script:subreddit.app
+
+libraries:
+- name: jinja2
+  version: latest
