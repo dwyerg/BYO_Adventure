@@ -1,6 +1,15 @@
 from google.appengine.ext import ndb
 
 class Story(ndb.Model):
-    =ndb.StringProperty(required=True)
-    bottomLine=ndb.StringProperty(required=True)
-    picture=ndb.StringProperty(required=True)
+    title=ndb.StringProperty(required=True)
+#    picture=ndb.StringProperty(required=True)
+
+class StoryPoint(ndb.Model):
+    story_id = ndb.IntegerProperty(required=True)
+    plot_id = ndb.StringProperty(required=True)
+    plot_text=ndb.TextProperty(required=True)
+
+class ChoicePoint(ndb.Model):
+    choice_text = ndb.StringProperty(required=True)
+    begin_plot_id = ndb.StringProperty(required=True)
+    next_plot_id = ndb.StringProperty(required=True)
