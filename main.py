@@ -21,11 +21,12 @@ jinjaEnv = jinja2.Environment(
 
 class CssiUser(ndb.Model):
     first_name = ndb.StringProperty()
+    last_name = ndb.StringProperty()
     email = ndb.StringProperty()
     age = ndb.IntegerProperty()
 
 
-class MainHandler(webapp2.RequestHandler):
+class LoginHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
@@ -68,18 +69,13 @@ class MainPage(webapp2.RequestHandler):
         main_template = jinjaEnv.get_template("main.html")
         self.response.write(main_template.render())
 
-class LoginPage(webapp2.RequestHandler):
-    def get(self):
-        login_template = jinjaEnv.get_template("login.html")
-        self.response.write(Login_template.render())
 
 # the app configuration section
 
 app = webapp2.WSGIApplication(
     [
         ("/", MainPage),
-        ("/login", LoginPage),
-        ('/', MainHandler)
+        ('/', LoginHandler)
     ],
     debug=True
     )
