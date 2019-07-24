@@ -110,6 +110,11 @@ class AddForkHandler(webapp2.RequestHandler):
         fork_template = jinjaEnv.get_template("fork.html")
         self.response.write(fork_template.render())
 
+class ProfileHandler(webapp2.RequestHandler):
+    def get(self):
+        profile_template = jinjaEnv.get_template("profile.html")
+        self.response.write(profile_template.render())
+
 app = webapp2.WSGIApplication(
     [
         ("/", MainPage),
@@ -117,7 +122,8 @@ app = webapp2.WSGIApplication(
         ("/registration",registrationPage),
         ('/create', CreateHandler),
         ('/newStep', NewStepHandler),
-        ('/addFork', AddForkHandler)
+        ('/addFork', AddForkHandler),
+        ('/profile',ProfileHandler)
     ],
     debug=True
     )
