@@ -1,5 +1,12 @@
 from google.appengine.ext import ndb
 
+class BYOusers(ndb.Model):
+    first_name = ndb.StringProperty()
+    last_name= ndb.StringProperty()
+    email = ndb.StringProperty()
+
+
+
 class Story(ndb.Model):
     title=ndb.StringProperty(required=True)
 #    picture=ndb.StringProperty(required=True)
