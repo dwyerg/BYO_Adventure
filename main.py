@@ -159,8 +159,8 @@ class ResultHandler(webapp2.RequestHandler):
         storypoint8 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceG_story_point"))
         storypoint9 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceH_story_point"))
         storypoint10 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceI_story_point"))
-        storypoint11= StoryPoint(story_key = rStory.key, text = self.request.get("choiceJ_story_point"))
-        storypoint12= StoryPoint(story_key = rStory.key, text = self.request.get("choiceK_story_point"))
+        storypoint11 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceJ_story_point"))
+        storypoint12 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceK_story_point"))
         storypoint13 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceL_story_point"))
 
         storypoint1.put()
@@ -181,6 +181,47 @@ class ResultHandler(webapp2.RequestHandler):
 
         rStory.put()
 
+        choicepoint1 = ChoicePoint(begin_story_point_key = storypoint1.key, end_story_point_key = storypoint2.key, text = self.request.get("Choice_A"))
+        choicepoint2 = ChoicePoint(begin_story_point_key = storypoint1.key, end_story_point_key = storypoint3.key, text = self.request.get("Choice_B"))
+        choicepoint3 = ChoicePoint(begin_story_point_key = storypoint2.key, end_story_point_key = storypoint4.key, text = self.request.get("Choice_C"))
+        choicepoint4 = ChoicePoint(begin_story_point_key = storypoint2.key, end_story_point_key = storypoint5.key, text = self.request.get("Choice_D"))
+        choicepoint5 = ChoicePoint(begin_story_point_key = storypoint3.key, end_story_point_key = storypoint6.key, text = self.request.get("Choice_E"))
+        choicepoint6 = ChoicePoint(begin_story_point_key = storypoint3.key, end_story_point_key = storypoint7.key, text = self.request.get("Choice_F"))
+        choicepoint7 = ChoicePoint(begin_story_point_key = storypoint4.key, end_story_point_key = storypoint8.key, text = self.request.get("Choice_G"))
+        choicepoint8 = ChoicePoint(begin_story_point_key = storypoint4.key, end_story_point_key = storypoint9.key, text = self.request.get("Choice_H"))
+        choicepoint9 = ChoicePoint(begin_story_point_key = storypoint6.key, end_story_point_key = storypoint10.key, text = self.request.get("Choice_I"))
+        choicepoint10 = ChoicePoint(begin_story_point_key = storypoint6.key, end_story_point_key = storypoint11.key, text = self.request.get("Choice_J"))
+        choicepoint11 = ChoicePoint(begin_story_point_key = storypoint7.key, end_story_point_key = storypoint12.key, text = self.request.get("Choice_K"))
+        choicepoint12 = ChoicePoint(begin_story_point_key = storypoint7.key, end_story_point_key = storypoint13.key, text = self.request.get("Choice_L"))
+
+        rStory.put()
+
+        storypoint1.put()
+        storypoint2.put()
+        storypoint3.put()
+        storypoint4.put()
+        storypoint5.put()
+        storypoint6.put()
+        storypoint7.put()
+        storypoint8.put()
+        storypoint9.put()
+        storypoint10.put()
+        storypoint11.put()
+        storypoint12.put()
+        storypoint13.put()
+
+        choicepoint1.put()
+        choicepoint2.put()
+        choicepoint3.put()
+        choicepoint4.put()
+        choicepoint5.put()
+        choicepoint6.put()
+        choicepoint7.put()
+        choicepoint8.put()
+        choicepoint9.put()
+        choicepoint10.put()
+        choicepoint11.put()
+        choicepoint12.put()
 
 app = webapp2.WSGIApplication(
     [
