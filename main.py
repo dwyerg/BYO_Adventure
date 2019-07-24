@@ -224,6 +224,19 @@ class ResultHandler(webapp2.RequestHandler):
         choicepoint11.put()
         choicepoint12.put()
 
+class BrowseHandler(webapp2.RequestHandler):
+    def get(self):
+        allStories = Story.query().fetch()
+        allStoryPoints = StoryPoint.query().fetch()
+        allChoicePoints = ChoicePoint.query().fetch()
+        all_dict = {
+            "theStories" = allStories,
+            "theStoryPoints" = allStoryPoints,
+            "theChoicePoints" = allChoicePoints
+        }
+        all_stories_template = jinjaEnv.get_template("browse.html")
+        self.response.write(all_stories_template.render(all_dict))
+
 app = webapp2.WSGIApplication(
     [
         ("/", MainPage),
@@ -235,7 +248,8 @@ app = webapp2.WSGIApplication(
         ('/addFork', AddForkHandler),
         ('/profile',ProfileHandler),
         ('/oneform', OneFormHandler),
-        ('/result', ResultHandler)
+        ('/result', ResultHandler),
+        ('/browse', BrowseHandler)
     ],
     debug=True
     )
