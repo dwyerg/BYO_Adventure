@@ -140,7 +140,6 @@ class ProfileHandler(webapp2.RequestHandler):
         profile_template = jinjaEnv.get_template("profile.html")
         self.response.write(profile_template.render(logout_dict))
 
-class BrowseHandler(webapp2.RequestHandler):
 
 class ResultHandler(webapp2.RequestHandler):
     def post(self):
@@ -230,9 +229,9 @@ class BrowseHandler(webapp2.RequestHandler):
         allStoryPoints = StoryPoint.query().fetch()
         allChoicePoints = ChoicePoint.query().fetch()
         all_dict = {
-            "theStories" = allStories,
-            "theStoryPoints" = allStoryPoints,
-            "theChoicePoints" = allChoicePoints
+            "theStories" : allStories,
+            #"theStoryPoints" : allStoryPoints,
+            #"theChoicePoints" : allChoicePoints
         }
         all_stories_template = jinjaEnv.get_template("browse.html")
         self.response.write(all_stories_template.render(all_dict))
