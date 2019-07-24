@@ -7,6 +7,7 @@ from google.appengine.ext import ndb
 from models import BYOusers
 from google.appengine.api import urlfetch
 import json
+import time
 # This initializes the jinja2 envrionment
 # THIS IS THE SAME FOR EVERY APP YOU BUILD
 # jinja2.Environment is a constructor
@@ -23,20 +24,20 @@ jinjaEnv = jinja2.Environment(
 class LoginHandler(webapp2.RequestHandler):
     def get(self):
         user= users.get_current_user()
+        print('user:' + str(user))
         if user:
             existing_user =BYOusers.query().filter(BYOusers.email == user.nickname()).get()
+            print('existing_user: ' + str(existing_user))
             if existing_user:
                 self.redirect("/")
             else:
                 # this is the case where they are not registered
                 self.redirect("/registration")
 
-
-
-
         login_dict={
             "login_url": users.create_login_url('/')
         }
+        print('logindict:' +str(login_dict))
 
         main_template = jinjaEnv.get_template("login.html")
         self.response.write(main_template.render(login_dict))
@@ -46,7 +47,7 @@ class LoginHandler(webapp2.RequestHandler):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        user= users.get_current_user()
+        user = users.get_current_user()
         if user:
             existing_user =BYOusers.query().filter(BYOusers.email == user.nickname()).get()
             if existing_user:
@@ -54,9 +55,6 @@ class MainPage(webapp2.RequestHandler):
             else:
                 # this is the case where they are not registered
                 self.redirect("/registration")
-
-
-
         else:
             self.redirect("/login")
         main_template = jinjaEnv.get_template("main.html")
@@ -72,7 +70,9 @@ class registrationPage(webapp2.RequestHandler):
         emailaddress= user.nickname()
         new_user=BYOusers(first_name=firstname,last_name=lastname,email=emailaddress)
         new_user.put()
+        time.sleep(1) # I'm sorry. Waiting for datastore to store
         self.redirect("/")
+
     def get(self):
         user= users.get_current_user()
         if user:
@@ -80,8 +80,9 @@ class registrationPage(webapp2.RequestHandler):
             if existing_user:
                 self.redirect("/")
 
+
         else:
-            self.redirect("/login")
+            self.redirect("/registration")
         main_template = jinjaEnv.get_template("registration.html")
         self.response.write(main_template.render())
 
@@ -112,8 +113,15 @@ class AddForkHandler(webapp2.RequestHandler):
 
 class ProfileHandler(webapp2.RequestHandler):
     def get(self):
+
+        user=users.get_current_user()
+        logout_dict={
+            "logout_url": users.create_logout_url('/login')
+        }
+
         profile_template = jinjaEnv.get_template("profile.html")
-        self.response.write(profile_template.render())
+        self.response.write(profile_template.render(logout_dict))
+
 
 app = webapp2.WSGIApplication(
     [
