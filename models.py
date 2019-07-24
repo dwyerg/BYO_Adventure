@@ -15,5 +15,5 @@ class StoryPoint(ndb.Model):
 
 class ChoicePoint(ndb.Model):
     text = ndb.StringProperty(required=True)
-    begin_story_point_id = ndb.KeyProperty(required=True)
-    end_story_point_id = ndb.KeyProperty(required=True)
+    begin_story_point_key = ndb.KeyProperty(required=True)
+    end_story_point_key = ndb.KeyProperty(required=True)
