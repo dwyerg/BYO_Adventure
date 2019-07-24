@@ -8,21 +8,20 @@
     <h1>Browse Adventures</h1>
 
     {% for story in theStories %}
-        <br>{{story.    }}
-        <br>{{story.    }}
-        <br>{{story.    }}
+        <br>{{story.title}}
+        <br>{{story.start_id}}
     {% endfor %}
 
     {% for storyPoint in theStoryPoints %}
-        <br>{{meme.top_line}}
-        <br><img src ="{{meme.meme_url}}">
-        <br>{{meme.bottom_line}}
+        <br>{{storyPoint.story_key}}
+        <br>{{storyPoint.story_point_id}}
+        <br>{{storyPoint.plot_text}}
     {% endfor %}
 
     {% for choicePoint in theChoicePoints %}
-        <br>{{meme.top_line}}
-        <br><img src ="{{meme.meme_url}}">
-        <br>{{meme.bottom_line}}
+        <br>{{choicePoint.choice_text}}
+        <br>{{choicePoint.begin_story_point_id}}
+        <br>{{choicePoint.next_story_point_id}}
     {% endfor %}
 
   </body>
