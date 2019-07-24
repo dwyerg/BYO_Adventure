@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Browse Adventures</title>
+  </head>
+  <body>
+    <h1>Browse Adventures</h1>
+
+    {% for story in theStories %}
+        <br>{{story.title}}
+        <br>{{story.first_story_point_key}}
+    {% endfor %}
+
+    {% for storyPoint in theStoryPoints %}
+        <br>{{storyPoint.story_key}}
+        <br>{{storyPoint.text}}
+    {% endfor %}
+
+    {% for choicePoint in theChoicePoints %}
+        <br>{{choicePoint.text}}
+        <br>{{choicePoint.begin_story_point_id}}
+        <br>{{choicePoint.end_story_point_id}}
+    {% endfor %}
+
+  </body>
+</html>

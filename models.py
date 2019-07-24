@@ -5,18 +5,15 @@ class BYOusers(ndb.Model):
     last_name= ndb.StringProperty()
     email = ndb.StringProperty()
 
-
-
 class Story(ndb.Model):
-    title=ndb.StringProperty(required=True)
-#    picture=ndb.StringProperty(required=True)
+    title = ndb.StringProperty(required=True)
+    first_story_point_key = ndb.KeyProperty(required = False)
 
 class StoryPoint(ndb.Model):
-    story_id = ndb.IntegerProperty(required=True)
-    plot_id = ndb.StringProperty(required=True)
-    plot_text=ndb.TextProperty(required=True)
+    story_key = ndb.KeyProperty(required=True)
+    text = ndb.StringProperty(required=True)
 
 class ChoicePoint(ndb.Model):
-    choice_text = ndb.StringProperty(required=True)
-    begin_plot_id = ndb.StringProperty(required=True)
-    next_plot_id = ndb.StringProperty(required=True)
+    text = ndb.StringProperty(required=True)
+    begin_story_point_id = ndb.KeyProperty(required=True)
+    end_story_point_id = ndb.KeyProperty(required=True)
