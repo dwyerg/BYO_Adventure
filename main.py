@@ -2,10 +2,6 @@ import webapp2
 import jinja2
 import os
 
-from models import Story
-from models import StoryPoint
-from models import ChoicePoint
-
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from models import BYOusers
@@ -138,18 +134,45 @@ class ProfileHandler(webapp2.RequestHandler):
         profile_template = jinjaEnv.get_template("profile.html")
         self.response.write(profile_template.render())
 
-class BrowseHandler(webapp2.RequestHandler):
-    def get(self):
-        allStories = Story.query().fetch()
-        allStoryPoints = StoryPoint.query().fetch()
-        allChoicePoints = ChoicePoint.query().fetch()
-        all_dict = {
-            "theStories" = allStories,
-            "theStoryPoints" = allStoryPoints,
-            "theChoicePoints" = allChoicePoints
-        }
-        all_stories_template = jinjaEnv.get_template("browse.html")
-        self.response.write(all_stories_template.render(all_dict))
+class ResultHandler(webapp2.RequestHandler):
+    def post(self):
+        result_template = jinjaEnv.get_template("result.html")
+        self.response.write(result_template.render())
+
+        rStory= Story(title= self.request.get("adventure_name"))
+        rStory.put()
+
+        storypoint1 = StoryPoint(story_key = rStory.key, text = self.request.get("first_story_point"))
+        storypoint2 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceA_story_point"))
+        storypoint3 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceB_story_point"))
+        storypoint4 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceC_story_point"))
+        storypoint5 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceD_story_point"))
+        storypoint6 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceE_story_point"))
+        storypoint7 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceF_story_point"))
+        storypoint8 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceG_story_point"))
+        storypoint9 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceH_story_point"))
+        storypoint10 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceI_story_point"))
+        storypoint11= StoryPoint(story_key = rStory.key, text = self.request.get("choiceJ_story_point"))
+        storypoint12= StoryPoint(story_key = rStory.key, text = self.request.get("choiceK_story_point"))
+        storypoint13 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceL_story_point"))
+
+        storypoint1.put()
+        storypoint2.put()
+        storypoint3.put()
+        storypoint4.put()
+        storypoint5.put()
+        storypoint6.put()
+        storypoint7.put()
+        storypoint8.put()
+        storypoint9.put()
+        storypoint10.put()
+        storypoint11.put()
+        storypoint12.put()
+        storypoint13.put()
+
+        rStory.first_story_point_key = storypoint1.key
+
+        rStory.put()
 
 
 app = webapp2.WSGIApplication(
@@ -163,7 +186,7 @@ app = webapp2.WSGIApplication(
         ('/addFork', AddForkHandler),
         ('/profile',ProfileHandler),
         ('/oneform', OneFormHandler),
-        ('/browse'), BrowseHandler)
+        ('result', ResultHandler)
     ],
     debug=True
     )
