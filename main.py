@@ -56,10 +56,35 @@ class MainPage(webapp2.RequestHandler):
 
 # the app configuration section
 
+class CreateHandler(webapp2.RequestHandler):
+    def get(self):
+        title= self.request.get("adventure_name")
+        create_template = jinjaEnv.get_template("create.html")
+        self.response.write(create_template.render())
+
+
+class NewStepHandler(webapp2.RequestHandler):
+    def post(self):
+        step_template = jinjaEnv.get_template("newStep.html")
+        self.response.write(step_template.render())
+
+        tStory= Story(title= self.request.get("adventure_name"))
+        print("THE TITLE OF THE STORY IS" + tStory.title)
+        tStory.put()
+
+        
+class AddForkHandler(webapp2.RequestHandler):
+    def post(self):
+        fork_template = jinjaEnv.get_template("fork.html")
+        self.response.write(fork_template.render())
+
 app = webapp2.WSGIApplication(
     [
         ("/", MainPage),
-        ('/', LoginHandler)
+        ('/login', LoginHandler),
+        ('/create', CreateHandler),
+        ('/newStep', NewStepHandler),
+        ('/addFork', AddForkHandler)
     ],
     debug=True
     )
