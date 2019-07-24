@@ -7,6 +7,23 @@
   <body>
     <h1>Browse Adventures</h1>
 
+    {% for story in theStories %}
+        <br>{{story.    }}
+        <br>{{story.    }}
+        <br>{{story.    }}
+    {% endfor %}
+
+    {% for storyPoint in theStoryPoints %}
+        <br>{{meme.top_line}}
+        <br><img src ="{{meme.meme_url}}">
+        <br>{{meme.bottom_line}}
+    {% endfor %}
+
+    {% for choicePoint in theChoicePoints %}
+        <br>{{meme.top_line}}
+        <br><img src ="{{meme.meme_url}}">
+        <br>{{meme.bottom_line}}
+    {% endfor %}
 
   </body>
 </html>

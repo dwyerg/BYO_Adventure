@@ -2,6 +2,10 @@ import webapp2
 import jinja2
 import os
 
+from models import Story
+from models import StoryPoint
+from models import ChoicePoint
+
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from models import BYOusers
@@ -115,6 +119,20 @@ class ProfileHandler(webapp2.RequestHandler):
         profile_template = jinjaEnv.get_template("profile.html")
         self.response.write(profile_template.render())
 
+class BrowseHandler(webapp2.RequestHandler):
+    def get(self):
+        allStories = Story.query().fetch()
+        allStoryPoints = StoryPoint.query().fetch()
+        allChoicePoints = ChoicePoint.query().fetch()
+        all_dict = {
+            "theStories" = allStories,
+            "theStoryPoints" = allStoryPoints,
+            "theChoicePoints" = allChoicePoints
+        }
+        all_stories_template = jinjaEnv.get_template("browse.html")
+        self.response.write(all_stories_template.render(all_dict))
+
+
 app = webapp2.WSGIApplication(
     [
         ("/", MainPage),
@@ -123,7 +141,8 @@ app = webapp2.WSGIApplication(
         ('/create', CreateHandler),
         ('/newStep', NewStepHandler),
         ('/addFork', AddForkHandler),
-        ('/profile',ProfileHandler)
+        ('/profile', ProfileHandler),
+        ('/browse', BrowseHandler)
     ],
     debug=True
     )
