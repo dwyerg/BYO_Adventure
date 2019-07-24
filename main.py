@@ -7,6 +7,10 @@ from google.appengine.ext import ndb
 from models import BYOusers
 from google.appengine.api import urlfetch
 import json
+from models import Story
+from models import StoryPoint
+from models import ChoicePoint
+
 # This initializes the jinja2 envrionment
 # THIS IS THE SAME FOR EVERY APP YOU BUILD
 # jinja2.Environment is a constructor
@@ -63,6 +67,10 @@ class MainPage(webapp2.RequestHandler):
         self.response.write(main_template.render())
 
 
+class OneFormHandler(webapp2.RequestHandler):
+    def get(self):
+        oneform_template = jinjaEnv.get_template("oneForm.html")
+        self.response.write(oneform_template.render())
 
 class registrationPage(webapp2.RequestHandler):
     def post(self):
@@ -95,7 +103,7 @@ class CreateHandler(webapp2.RequestHandler):
         self.response.write(create_template.render())
 
 
-class NewStepHandler(webapp2.RequestHandler):
+class FirstStepHandler(webapp2.RequestHandler):
     def post(self):
         step_template = jinjaEnv.get_template("newStep.html")
         self.response.write(step_template.render())
@@ -109,6 +117,17 @@ class AddForkHandler(webapp2.RequestHandler):
     def post(self):
         fork_template = jinjaEnv.get_template("fork.html")
         self.response.write(fork_template.render())
+        tStoryPoint=StoryPoint(story_key= 8, story_point_id = "ehbeej" , plot_text = self.request.get("story_text_box"))
+        #tStoryPoint=StoryPoint(story_key= "", story_point_id = "" , plot_text = self.request.get("story_text_box"))
+        #story_key=The ID of the story it belongs to, story_point_id is the random thing appengine generates
+        print("HERE IS HOW THE STORY BEGINS:" + "\n" + tStoryPoint.plot_text)
+        tStoryPoint.put()
+
+
+class NewStepHandler(webapp2.RequestHandler):
+    def post(self):
+        fork_template = jinjaEnv.get_template("firstStep.html")
+        self.response.write(fork_template.render())
 
 class ProfileHandler(webapp2.RequestHandler):
     def get(self):
@@ -121,9 +140,11 @@ app = webapp2.WSGIApplication(
         ('/login', LoginHandler),
         ("/registration",registrationPage),
         ('/create', CreateHandler),
+        ('/firstStep', FirstStepHandler),
         ('/newStep', NewStepHandler),
         ('/addFork', AddForkHandler),
-        ('/profile',ProfileHandler)
+        ('/profile',ProfileHandler),
+        ('/oneform', OneFormHandler)
     ],
     debug=True
     )
