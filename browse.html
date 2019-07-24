@@ -9,19 +9,18 @@
 
     {% for story in theStories %}
         <br>{{story.title}}
-        <br>{{story.start_id}}
+        <br>{{story.first_story_point_key}}
     {% endfor %}
 
     {% for storyPoint in theStoryPoints %}
         <br>{{storyPoint.story_key}}
-        <br>{{storyPoint.story_point_id}}
-        <br>{{storyPoint.plot_text}}
+        <br>{{storyPoint.text}}
     {% endfor %}
 
     {% for choicePoint in theChoicePoints %}
-        <br>{{choicePoint.choice_text}}
+        <br>{{choicePoint.text}}
         <br>{{choicePoint.begin_story_point_id}}
-        <br>{{choicePoint.next_story_point_id}}
+        <br>{{choicePoint.end_story_point_id}}
     {% endfor %}
 
   </body>
