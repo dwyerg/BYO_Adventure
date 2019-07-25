@@ -2,10 +2,17 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/main.css">
     <title></title>
   </head>
-  <h1>Welcome to the profile page</h1>
-  <body style="background-color: grey";>
-    <a href="{{logout_url}}">__Log out__</a>
+    <body>
+      <div class="bg-image"></div>
+      <div class="bg-text">
+        <h1>Welcome to the profile page</h1>
+        <h2>First name: <i>{{firstname}}</i></h2>
+        <h2>Last name: <i> {{lastname}}</i>  </h2>
+        <h2>Email: <i>{{email}}</i></h2>
+        <a href="{{logout_url}}">__Log out__</a>
+      </div>
   </body>
 </html>

@@ -11,6 +11,11 @@ threadsafe: True
 handlers:
  #redirects to where the files actually live on the server
  #make new directories for static content
+- url: /css
+  static_dir: css
+
+
+
 - url: /.* #regex
   script: main.app
 #-url:/r
@@ -19,7 +24,3 @@ handlers:
 libraries:
 - name: jinja2
   version: latest
-
-
-# - url: /css
-#   static_dir: css
