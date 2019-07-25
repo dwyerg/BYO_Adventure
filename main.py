@@ -249,6 +249,11 @@ class BrowseHandler(webapp2.RequestHandler):
         all_stories_template = jinjaEnv.get_template("browse.html")
         self.response.write(all_stories_template.render(all_dict))
 
+class ReadHandler(webapp2.RequestHandler):
+    def get(self):
+        read_template = jinjaEnv.get_template("read.html")
+        self.response.write(read_template.render())
+
 app = webapp2.WSGIApplication(
     [
         ("/", MainPage),
@@ -257,7 +262,8 @@ app = webapp2.WSGIApplication(
         ('/profile',ProfileHandler),
         ('/oneform', OneFormHandler),
         ('/result', ResultHandler),
-        ('/browse', BrowseHandler)
+        ('/browse', BrowseHandler),
+        ('/read', ReadHandler)
     ],
     debug=True
     )
