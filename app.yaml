@@ -11,8 +11,13 @@ threadsafe: True
 handlers:
  #redirects to where the files actually live on the server
  #make new directories for static content
+- url: /js
+  static_dir: js
+
 - url: /.* #regex
   script: main.app
+
+
 #-url:/r
 #script:subreddit.app
 
