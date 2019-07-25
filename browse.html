@@ -9,19 +9,12 @@
 
     {% for story in theStories %}
         <br>{{story.title}}
-        <!-- <br>{{story.first_story_point_key}} -->
+        <input type="radio" name="url" value="{{url}}">
     {% endfor %}
 
-    {% for storyPoint in theStoryPoints %}
-        <br>{{storyPoint.story_key}}
-        <br>{{storyPoint.text}}
-    {% endfor %}
-
-    {% for choicePoint in theChoicePoints %}
-        <br>{{choicePoint.text}}
-        <br>{{choicePoint.begin_story_point_key}}
-        <br>{{choicePoint.end_story_point_key}}
-    {% endfor %}
+    <form action="/read" method="get">
+      <input type='submit' value="Read">
+    </form>
 
   </body>
 </html>
