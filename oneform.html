@@ -7,57 +7,64 @@
   <body>
     <form method='post' action='/result'>
 
-        What is the title of the story?<input type='text' name='adventure_name' value="ex. Molly's Adventure ">
-        <br>
+        What is the title of the story?<input type='text' name='adventure_name'>
+        <br> <br>
         How does the story begin?<input type='textarea' name='first_story_point'>
+        <br> <br>
+        &emsp; What choices does the reader have first?
+        <br> <br>
+        &emsp; Choice A<input type='text' name='Choice_A'>
+        Choice B<input type='text' name='Choice_B'>
+        <br> <br>
+        &emsp; &emsp; What happenes if the reader chooses Choice A? <input type='textarea' name='choiceA_story_point'>
+        <br> <br>
+        &emsp; &emsp; &emsp; What choices does the reader have after Choice A?
+        <br> <br>
+        &emsp; &emsp; &emsp; Choice C<input type='text' name='Choice_C'>
+        Choice D<input type='text' name='Choice_D'>
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice D? <input type='textarea' name='choiceD_story_point'> (negative ending)
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice C? <input type='textarea' name='choiceC_story_point'>
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; What choices does the reader have after Choice C?
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; Choice G<input type='text' name='Choice_G'>
+        Choice H<input type='text' name='Choice_H'>
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice G? <input type='textarea' name='choiceG_story_point'> (negative ending)
         <br>
-        What choices does the reader have first?
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice H? <input type='textarea' name='choiceH_story_point'> (positve ending)
+        <br> <br>
+        &emsp; &emsp; What happens if the reader chooses Choice B <input type = 'textarea' name = 'choiceB_story_point'>
+        <br> <br>
+        &emsp; &emsp; &emsp; What choices does the reader have after Choice B?
+        <br> <br>
+        &emsp; &emsp; &emsp; Choice E<input type='text' name='Choice_E'>
+        Choice F<input type='text' name='Choice_F'>
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice E? <input type='textarea' name='choiceE_story_point'>
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; What choices does the reader have after Choice E?
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; Choice I<input type='text' name='Choice_I'>Choice J<input type='text' name='Choice_J'>
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice I? <input type='textarea' name='choiceI_story_point'> (positve ending)
         <br>
-        Choice A<input type='text' name='Choice_A' value="ex. run ">
-        Choice B<input type='text' name='Choice_B' value="ex. hide">
-          <br>         <br>
-          What happenes if the reader chooses Choice A <input type='textarea' name='choiceA_story_point'>
-          <br>
-          &#8195 What choices does the reader have after Choice A?
-          &#8195 Choice C<input type='text' name='Choice_C' value="ex. run ">
-          &#8195 Choice D<input type='text' name='Choice_D' value="ex. hide">
-          <br>
-          &#8195 *nota bene: Choice D should lead to a negative ending.
-          <br>           <br>
-            What happenes if the reader chooses Choice C <input type='textarea' name='choiceC_story_point'>
-          <br>         <br>
-            What choices does the reader have after Choice C?
-            Choice G<input type='text' name='Choice_G' value="ex. run ">
-            What happenes if the reader chooses Choice G<input type='textarea' name='choiceG_story_point'>
-            Choice H<input type='text' name='Choice_H' value="ex. hide">
-            What happenes if the reader chooses Choice H <input type='textarea' name='choiceH_story_point'>
-            <br>
-            *nota bene: Choice G should lead to a negative ending, while Choice H leads to a positive ending.
-            <br>
-            What happenes if the reader chooses Choice D <input type='textarea' name='choiceD_story_point'>
-          <br>           <br>
-          What happens if the reader chooses Choice B <input type = 'textarea' name = 'choiceB_story_point'>
-          <br>
-          What choices does the reader have after Choice B?
-          Choice E<input type='text' name='Choice_E' value="ex. run ">
-          Choice F<input type='text' name='Choice_F' value="ex. hide">
-          <br>           <br>
-            What happenes if the reader chooses Choice E <input type='textarea' name='choiceE_story_point'>
-            What choices does the reader have after Choice E?
-            Choice I<input type='text' name='Choice_I' value="ex. run ">
-            What happenes if the reader chooses Choice I <input type='textarea' name='choiceI_story_point'>
-            Choice J<input type='text' name='Choice_J' value="ex. hide">
-            What happenes if the reader chooses Choice J <input type='textarea' name='choiceJ_story_point'>
-            *nota bene: Choice J should lead to a negative ending, while Choice I leads to a positive ending.
-            What happenes if the reader chooses Choice F <input type='textarea' name='choiceF_story_point'>
-            Choice K<input type='text' name='Choice_K' value="ex. run ">
-            What happenes if the reader chooses Choice E <input type='textarea' name='choiceK_story_point'>
-            What happenes if the reader chooses Choice L <input type='textarea' name='choiceL_story_point'>
-            Choice L<input type='text' name='Choice_L' value="ex. hide">
-            *nota bene: Both of these choices should lead to negative endings.
-          <br>
-        What choices does the reader have next?
-        <input type='submit'>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice J <input type='textarea' name='choiceJ_story_point'> (negative ending)
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice F? <input type='textarea' name='choiceF_story_point'>
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; What choices does the reader have after Choice F?
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; Choice K<input type='text' name='Choice_K'>
+        Choice L<input type='text' name='Choice_L'>
+        <br> <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice K? <input type='textarea' name='choiceK_story_point'> (negative ending)
+        <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice L? <input type='textarea' name='choiceL_story_point'> (negative ending)
+        <br> <br>
+        <input type='submit' value="Create">
     </form>
 
 
