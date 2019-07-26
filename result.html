@@ -4,29 +4,49 @@
 
     <meta charset="utf-8">
     <title>Read your story!</title>
+    <style media="screen">
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
   <body id = "storyText">
       {{display_title}}
-      {{display_sp_1}}
+      <div id="story">  {{display_sp_1}} </div>
+
+      <button type="button" class="choicebutton" name="choice_test" next_story_point="{{cp1_next_key.id()}}" id="choice_button1">{{display_cp_1}}</button>
+      <button type="button" class="choicebutton" name="choice_test" next_story_point="{{cp2_next_key.id()}}"  id="choice_button2">{{display_cp_2}}</button>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script type="text/javascript">
+          $(function() {
+            $(".choicebutton").click(
+            function() {
+              //alert($(this).attr("next_story_point"));
+              $.getJSON("/api/story?id="+ $(this).attr("next_story_point"), function( data ) {
+                  //alert(data.story_text);
+                  //change the buttons. replace the story text. need the button text and the next story point
+                  if (data.choices.length > 0)
+                  {
+                  $("#choice_button1").html(data.choices[0].text);
+                  $("#choice_button2").html(data.choices[1].text);
+                  $("#choice_button1").attr("next_story_point", data.choices[0].end_point);
+                  $("#choice_button2").attr("next_story_point", data.choices[1].end_point);
+                  $( ".choicebutton" ).removeClass( "hidden" );
+                    }
+                  else {
+                    $( ".choicebutton" ).addClass( "hidden" );
+                    }
+                  $("#story").html(data.story_text);
+
+              });
+
+            }
+            );
 
 
 
-
-      <!-- {{display_sp_2}}
-      {{display_sp_3}}
-      {{display_sp_4}}
-      {{display_sp_5}}
-      {{display_sp_6}}
-      {{display_sp_7}}
-      {{display_sp_8}}
-      {{display_sp_9}}
-      {{display_sp_10}}
-      {{display_sp_11}}
-      {{display_sp_12}}
-      {{display_sp_13}} -->
+          });
+        </script>
   </body>
-      <button type="button" name="choice_test" next_story_point="" id="choice_button1">{{display_cp_1}}</button>
-      <button type="button" name="choice_test" next_story_point="" id="choice_button2">{{display_cp_2}}</button>
-      <script type="text/javascript" src="js/result.js" charset="utf-8"></script>
-
 </html>

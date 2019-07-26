@@ -3,40 +3,55 @@
   <head>
     <meta charset="utf-8">
     <title>Write a Choose Your Own Adventure!</title>
+    <link rel="stylesheet" href="css/oneform.css">
   </head>
   <body>
-    <form method='post' action='/result'>
+    <form method='post' action='/result' >
 
-        What is the title of the story?<input type='text' name='adventure_name'>
+        What is the title of the story? <input type='text' name='adventure_name'id="title">
         <br> <br>
-        How does the story begin?<input type='textarea' name='first_story_point'>
+        How does the story begin?
+        <br>
+        <textarea type='text' name='first_story_point' id="textbox"></textarea>
         <br> <br>
         &emsp; What choices does the reader have first?
         <br> <br>
-        &emsp; Choice A<input type='text' name='Choice_A'>
-        Choice B<input type='text' name='Choice_B'>
+        &emsp; Choice A<input type='text' name='Choice_A' id="choicebox">
+        Choice B<input type='text' name='Choice_B' id="choicebox">
         <br> <br>
-        &emsp; &emsp; What happenes if the reader chooses Choice A? <input type='textarea' name='choiceA_story_point'>
+        &emsp; &emsp; What happenes if the reader chooses Choice A?
+        <br>
+        &emsp; &emsp; <textarea type='text' name='choiceA_story_point' id="textbox"></textarea>
         <br> <br>
         &emsp; &emsp; &emsp; What choices does the reader have after Choice A?
         <br> <br>
-        &emsp; &emsp; &emsp; Choice C<input type='text' name='Choice_C'>
-        Choice D<input type='text' name='Choice_D'>
+        &emsp; &emsp; &emsp; Choice C<input type='text' name='Choice_C' id="choicebox">
+        Choice D<input type='text' name='Choice_D' id="choicebox">
         <br> <br>
-        &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice D? <input type='textarea' name='choiceD_story_point'> (negative ending)
+        &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice D? (negative ending)
+        <br>
+        &emsp; &emsp; &emsp; &emsp; <textarea type='text' name='choiceD_story_point' id="textbox"></textarea>
         <br> <br>
-        &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice C? <input type='textarea' name='choiceC_story_point'>
+        &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice C?
+        <br>
+        &emsp; &emsp; &emsp; &emsp; <textarea type='text' name='choiceC_story_point' id="textbox"></textarea>
         <br> <br>
         &emsp; &emsp; &emsp; &emsp; &emsp; What choices does the reader have after Choice C?
         <br> <br>
-        &emsp; &emsp; &emsp; &emsp; &emsp; Choice G<input type='text' name='Choice_G'>
-        Choice H<input type='text' name='Choice_H'>
+        &emsp; &emsp; &emsp; &emsp; &emsp; Choice G<input type='text' name='Choice_G' id="choicebox">
+        Choice H<input type='text' name='Choice_H' id="choicebox">
         <br> <br>
-        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice G? <input type='textarea' name='choiceG_story_point'> (negative ending)
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice G? (negative ending)
         <br>
-        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice H? <input type='textarea' name='choiceH_story_point'> (positve ending)
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <textarea type='text' name='choiceG_story_point' id="textbox"></textarea>
+        <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; What happenes if the reader chooses Choice H? (positive ending)
+        <br>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <textarea type='text' name='choiceH_story_point' id="textbox"></textarea>
         <br> <br>
-        &emsp; &emsp; What happens if the reader chooses Choice B <input type = 'textarea' name = 'choiceB_story_point'>
+        &emsp; &emsp; What happenes if the reader chooses Choice B?
+        <br>
+        &emsp; &emsp; <textarea type='text' name='choiceB_story_point' id="textbox"></textarea>
         <br> <br>
         &emsp; &emsp; &emsp; What choices does the reader have after Choice B?
         <br> <br>
