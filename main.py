@@ -237,6 +237,10 @@ class ResultHandler(webapp2.RequestHandler):
         #creating the story for what the user will input
         #with only a title for now bc we will make the first id later
 
+    def get(self):
+        
+        pass
+
 
 class BrowseHandler(webapp2.RequestHandler):
     def get(self):
@@ -253,6 +257,14 @@ class ReadHandler(webapp2.RequestHandler):
     def get(self):
         read_template = jinjaEnv.get_template("read.html")
         self.response.write(read_template.render())
+class StoryPointAPI(webapp2.RequestHandler):
+    def get(self):
+        id = self.request.get("id")
+        simple_dict = {
+            "story_text": ,
+            "pear": "orange"
+        }
+        self.response.write(json.dumps(simple_dict))
 
 app = webapp2.WSGIApplication(
     [
@@ -263,7 +275,8 @@ app = webapp2.WSGIApplication(
         ('/oneform', OneFormHandler),
         ('/result', ResultHandler),
         ('/browse', BrowseHandler),
-        ('/read', ReadHandler)
+        ('/read', ReadHandler),
+        ('/api/story', StoryPointAPI)
     ],
     debug=True
     )
