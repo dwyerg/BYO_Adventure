@@ -96,9 +96,15 @@ class registrationPage(webapp2.RequestHandler):
 
 class ProfileHandler(webapp2.RequestHandler):
     def get(self):
-
         user=users.get_current_user()
+        email_address= user.nickname()
+        existing_user= BYOusers.query().filter(BYOusers.email== email_address).get()
+
+
         logout_dict={
+            "firstname": existing_user.first_name,
+            "lastname": existing_user.last_name,
+            "email": existing_user.email,
             "logout_url": users.create_logout_url('/login')
         }
 
