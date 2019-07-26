@@ -244,7 +244,7 @@ class ResultHandler(webapp2.RequestHandler):
         #with only a title for now bc we will make the first id later
 
     def get(self):
-        
+
         pass
 
 
@@ -263,14 +263,14 @@ class ReadHandler(webapp2.RequestHandler):
     def get(self):
         read_template = jinjaEnv.get_template("read.html")
         self.response.write(read_template.render())
-class StoryPointAPI(webapp2.RequestHandler):
-    def get(self):
-        id = self.request.get("id")
-        simple_dict = {
-            "story_text": ,
-            "pear": "orange"
-        }
-        self.response.write(json.dumps(simple_dict))
+# class StoryPointAPI(webapp2.RequestHandler):
+#     def get(self):
+#         id = self.request.get("id")
+#         simple_dict = {
+#             "story_text":
+#             "pear": "orange"
+#         }
+#         self.response.write(json.dumps(simple_dict))
 
 app = webapp2.WSGIApplication(
     [
@@ -282,7 +282,7 @@ app = webapp2.WSGIApplication(
         ('/result', ResultHandler),
         ('/browse', BrowseHandler),
         ('/read', ReadHandler),
-        ('/api/story', StoryPointAPI)
+        # ('/api/story', StoryPointAPI)
     ],
     debug=True
     )
