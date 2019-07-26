@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -8,8 +9,8 @@
     <h1>Browse Adventures</h1>
 
     {% for story in theStories %}
-        <br>{{story.title}}
-        <input type="radio" name="url" value="{{url}}">
+        <br>
+        <a href="/read?id={{story.key.id()}}" "{{story.title}}" id = "adventure_name">{{story.title}} </a>
     {% endfor %}
 
     <form action="/read" method="get">

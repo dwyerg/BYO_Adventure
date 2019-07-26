@@ -1,10 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
 
+    <meta charset="utf-8">
+    <title>Read your story!</title>
+    <style media="screen">
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body id = "storyText">
+      {{display_title}}
+      <div id="story">  {{display_sp_1}} </div>
+
+      <button type="button" class="choicebutton" name="choice_test" next_story_point="{{cp1_next_key}}" id="choice_button1">{{display_cp_1}}</button>
+      <button type="button" class="choicebutton" name="choice_test" next_story_point="{{cp2_next_key}}"  id="choice_button2">{{display_cp_2}}</button>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script type="text/javascript">
+          $(function() {
+            $(".choicebutton").click(
+            function() {
+              //alert($(this).attr("next_story_point"));
+              $.getJSON("/api/story?id="+ $(this).attr("next_story_point"), function( data ) {
+                  //alert(data.story_text);
+                  //change the buttons. replace the story text. need the button text and the next story point
+                  if (data.choices.length > 0)
+                  {
+                  $("#choice_button1").html(data.choices[0].text);
+                  $("#choice_button2").html(data.choices[1].text);
+                  $("#choice_button1").attr("next_story_point", data.choices[0].end_point);
+                  $("#choice_button2").attr("next_story_point", data.choices[1].end_point);
+                  $( ".choicebutton" ).removeClass( "hidden" );
+                    }
+                  else {
+                    $( ".choicebutton" ).addClass( "hidden" );
+                    }
+                  $("#story").html(data.story_text);
+
+              });
+
+            }
+            );
+
+
+
+          });
+        </script>
   </body>
 </html>
