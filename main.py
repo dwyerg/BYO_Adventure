@@ -143,8 +143,7 @@ class ProfileHandler(webapp2.RequestHandler):
 
 class ResultHandler(webapp2.RequestHandler):
     def post(self):
-        result_template = jinjaEnv.get_template("result.html")
-        self.response.write(result_template.render())
+
 
         rStory= Story(title= self.request.get("adventure_name"))
         rStory.put()
@@ -241,9 +240,9 @@ class ResultHandler(webapp2.RequestHandler):
             "display_sp_13" : storypoint13.text,
 
             "display_cp_1" : choicepoint1.text,
-            "cp1_next_key" : choicepoint1.end_story_point_key,
+            "cp1_next_key" : choicepoint1.end_story_point_key.id(),
             "display_cp_2" : choicepoint2.text,
-            "cp2_next_key" : choicepoint2.end_story_point_key,
+            "cp2_next_key" : choicepoint2.end_story_point_key.id(),
             "display_cp_3" : choicepoint3.text,
             "display_cp_4" : choicepoint4.text,
             "display_cp_5" : choicepoint5.text,
@@ -483,7 +482,8 @@ app = webapp2.WSGIApplication(
         ('/oneform', OneFormHandler),
         ('/result', ResultHandler),
         ('/browse', BrowseHandler),
-        ('/read', ReadHandler)
+        ('/read', ReadHandler),
+        ('/api/story', StoryPointAPI)
     ],
     debug=True
     )
