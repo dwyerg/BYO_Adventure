@@ -14,10 +14,14 @@ handlers:
 - url: /css
   static_dir: css
 
+- url: /js
+  static_dir: js
 
 
 - url: /.* #regex
   script: main.app
+
+
 #-url:/r
 #script:subreddit.app
 
