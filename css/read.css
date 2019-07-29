@@ -1,0 +1,51 @@
+/* .bg-image{
+  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url("https://miro.medium.com/max/1106/1*qhMrAo0SnTfwOsVE1KTPYA.jpeg");
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+} */
+.readpage{
+  width:360px;
+  padding: 10% 0 0;
+  margin: auto;
+}
+
+.designpart input{
+  font-family: "Roboto",sans-serif;
+  outline: 1;
+  background:#f4f4f4 ;
+  width:100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px
+}
+.buttons{
+  position: relative;
+  z-index: 1;
+  background:lime;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+}
+.topnav a {
+  float: left;
+  color: blue;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: blue;
+  color: white;
+}
