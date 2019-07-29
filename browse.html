@@ -13,15 +13,17 @@
 </div>
   <body>
     <h1>Browse Adventures</h1>
-
+    {% if theStories < 1 %}
+    You don't have any adventures! Make some!
+    <form action="/oneform" method="get">
+      <input type='submit' value="Create">
+    </form>
+    {% endif%}
     {% for story in theStories %}
         <br>
         <a href="/read?id={{story.key.id()}}" "{{story.title}}" id = "adventure_name">{{story.title}} by {{story.author}} </a>
+        <br> <br>
     {% endfor %}
-
-    <form action="/read" method="get">
-      <input type='submit' value="Read">
-    </form>
 
   </body>
 </html>
