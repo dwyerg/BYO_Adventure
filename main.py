@@ -63,11 +63,22 @@ class MainPage(webapp2.RequestHandler):
         main_template = jinjaEnv.get_template("main.html")
         self.response.write(main_template.render())
 
-
 class OneFormHandler(webapp2.RequestHandler):
     def get(self):
+        oneform_dict={"logout_url": users.create_logout_url('/login')}
         oneform_template = jinjaEnv.get_template("oneForm.html")
         self.response.write(oneform_template.render())
+
+        tStory.put()
+
+        user=users.get_current_user()
+        if user:
+            existing_user =BYOusers.query().filter(BYOusers.email == user.nickname()).get()
+        stories = Story.query().fetch()
+        myStories=[]
+        for story in stories:
+            if story.author==str(existing_user.first_name) + " " + str(existing_user.last_name):
+                myStories.append(story)
 
 class registrationPage(webapp2.RequestHandler):
     def post(self):
@@ -96,39 +107,6 @@ class registrationPage(webapp2.RequestHandler):
 
 # the app configuration section
 
-class CreateHandler(webapp2.RequestHandler):
-    def get(self):
-        title= self.request.get("adventure_name")
-        create_template = jinjaEnv.get_template("create.html")
-        self.response.write(create_template.render())
-
-
-class FirstStepHandler(webapp2.RequestHandler):
-    def post(self):
-        step_template = jinjaEnv.get_template("newStep.html")
-        self.response.write(step_template.render())
-
-        tStory= Story(title= self.request.get("adventure_name"))
-        print("THE TITLE OF THE STORY IS" + tStory.title)
-        tStory.put()
-
-
-class AddForkHandler(webapp2.RequestHandler):
-    def post(self):
-        fork_template = jinjaEnv.get_template("fork.html")
-        self.response.write(fork_template.render())
-        tStoryPoint=StoryPoint(story_key= 8, story_point_id = "ehbeej" , plot_text = self.request.get("story_text_box"))
-        #tStoryPoint=StoryPoint(story_key= "", story_point_id = "" , plot_text = self.request.get("story_text_box"))
-        #story_key=The ID of the story it belongs to, story_point_id is the random thing appengine generates
-        print("HERE IS HOW THE STORY BEGINS:" + "\n" + tStoryPoint.plot_text)
-        tStoryPoint.put()
-
-
-class NewStepHandler(webapp2.RequestHandler):
-    def post(self):
-        fork_template = jinjaEnv.get_template("firstStep.html")
-        self.response.write(fork_template.render())
-
 class ProfileHandler(webapp2.RequestHandler):
     def get(self):
         user=users.get_current_user()
@@ -148,6 +126,13 @@ class ProfileHandler(webapp2.RequestHandler):
 class ResultHandler(webapp2.RequestHandler):
     def post(self):
 
+        sAuthor= ""
+        bAuthor= users.get_current_user()
+        if bAuthor:
+            existing_user =BYOusers.query().filter(BYOusers.email == bAuthor.nickname()).get()
+            if existing_user:
+                sAuthor=str(existing_user.first_name) + " " + str(existing_user.last_name)
+                print("This story was written by " + sAuthor)
 
         rStory= Story(title= self.request.get("adventure_name"))
         rStory.put()
