@@ -96,45 +96,18 @@ class registrationPage(webapp2.RequestHandler):
 
 # the app configuration section
 
-class CreateHandler(webapp2.RequestHandler):
-    def get(self):
-        title= self.request.get("adventure_name")
-        create_template = jinjaEnv.get_template("create.html")
-        self.response.write(create_template.render())
-
-
-class FirstStepHandler(webapp2.RequestHandler):
-    def post(self):
-        step_template = jinjaEnv.get_template("newStep.html")
-        self.response.write(step_template.render())
-
-        tStory= Story(title= self.request.get("adventure_name"))
-        print("THE TITLE OF THE STORY IS" + tStory.title)
-        tStory.put()
-
-
-class AddForkHandler(webapp2.RequestHandler):
-    def post(self):
-        fork_template = jinjaEnv.get_template("fork.html")
-        self.response.write(fork_template.render())
-        tStoryPoint=StoryPoint(story_key= 8, story_point_id = "ehbeej" , plot_text = self.request.get("story_text_box"))
-        #tStoryPoint=StoryPoint(story_key= "", story_point_id = "" , plot_text = self.request.get("story_text_box"))
-        #story_key=The ID of the story it belongs to, story_point_id is the random thing appengine generates
-        print("HERE IS HOW THE STORY BEGINS:" + "\n" + tStoryPoint.plot_text)
-        tStoryPoint.put()
-
-
-class NewStepHandler(webapp2.RequestHandler):
-    def post(self):
-        fork_template = jinjaEnv.get_template("firstStep.html")
-        self.response.write(fork_template.render())
-
 class ProfileHandler(webapp2.RequestHandler):
     def get(self):
 
         user=users.get_current_user()
+        if user:
+            existing_user =BYOusers.query().filter(BYOusers.email == user.nickname()).get()
+
         logout_dict={
-            "logout_url": users.create_logout_url('/login')
+            "logout_url": users.create_logout_url('/login'),
+            "firstname": existing_user.first_name,
+            "lastname":  existing_user.last_name,
+            "email": existing_user.email
         }
 
         profile_template = jinjaEnv.get_template("profile.html")
@@ -144,8 +117,16 @@ class ProfileHandler(webapp2.RequestHandler):
 class ResultHandler(webapp2.RequestHandler):
     def post(self):
 
+        sAuthor= ""
+        bAuthor= users.get_current_user()
+        if bAuthor:
+            existing_user =BYOusers.query().filter(BYOusers.email == bAuthor.nickname()).get()
+            if existing_user:
+                sAuthor=str(existing_user.first_name) + str(existing_user.last_name)
+                print("This story was written by " + sAuthor)
 
-        rStory= Story(title= self.request.get("adventure_name"))
+
+        rStory= Story(title= self.request.get("adventure_name"), author=sAuthor)
         rStory.put()
 
         storypoint1 = StoryPoint(story_key = rStory.key, text = self.request.get("first_story_point"))
@@ -270,8 +251,6 @@ class ResultHandler(webapp2.RequestHandler):
 class BrowseHandler(webapp2.RequestHandler):
     def get(self):
         allStories = Story.query().fetch()
-        print("***********************************")
-        print(allStories[0].key.id())
         all_dict = {
             "theStories" : allStories
         }
@@ -285,36 +264,22 @@ class ReadHandler(webapp2.RequestHandler):
         stories = (Story
             .query()
             .fetch())
-
-        # key = StoryPoint.key().from_path("StoryPoint",id)
-        # next_story_point = Story.get()
         the_story=None
-
         if stories :
             for story in stories:
-                # print(story.key.id())
                 if story.key.id() == int(story_id):
-                    # print("found it!")
                     the_story=story
-                    # next_story_point=story
                     break
-
         story_points = (StoryPoint
             .query()
             .fetch())
-
-        # key = StoryPoint.key().from_path("StoryPoint",id)
         next_story_point = None
-
         if story_points :
             for storypoint in story_points:
-                #print(storypoint.key.id())
                 if storypoint.key.id() == the_story.first_story_point_key.id():
                     print("found it!")
                     next_story_point=storypoint
                     break
-
-
         if next_story_point:
             choices = (ChoicePoint.query().fetch())
             next_choices = []
@@ -322,7 +287,6 @@ class ReadHandler(webapp2.RequestHandler):
                 if choice.begin_story_point_key.id()==next_story_point.key.id():
                     print("found choices!")
                     next_choices.append({"text": choice.text, "end_point": choice.end_story_point_key.id()})
-
         read_dictionary = {
 
                 "display_title": the_story.title,
@@ -333,122 +297,21 @@ class ReadHandler(webapp2.RequestHandler):
                 "display_cp_2" : next_choices[1]["text"],
                 "cp2_next_key" : next_choices[1]["end_point"]
             }
-
-    #     rStory= Story(title= self.request.get("adventure_name2"))
-    #
-    #     #shooting the story up to the database
-    #     rStory.put()
-    #
-    #     #creating the storypoints based on each text they enter for what happens
-    #     storypoint1 = StoryPoint(story_key = rStory.key, text = self.request.get("first_story_point"))
-    #     storypoint2 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceA_story_point"))
-    #     storypoint3 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceB_story_point"))
-    #     storypoint4 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceC_story_point"))
-    #     storypoint5 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceD_story_point"))
-    #     storypoint6 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceE_story_point"))
-    #     storypoint7 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceF_story_point"))
-    #     storypoint8 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceG_story_point"))
-    #     storypoint9 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceH_story_point"))
-    #     storypoint10 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceI_story_point"))
-    #     storypoint11 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceJ_story_point"))
-    #     storypoint12 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceK_story_point"))
-    #     storypoint13 = StoryPoint(story_key = rStory.key, text = self.request.get("choiceL_story_point"))
-    #
-    #     #putting all of the storypoints into the database
-    #     storypoint1.put()
-    #     storypoint2.put()
-    #     storypoint3.put()
-    #     storypoint4.put()
-    #     storypoint5.put()
-    #     storypoint6.put()
-    #     storypoint7.put()
-    #     storypoint8.put()
-    #     storypoint9.put()
-    #     storypoint10.put()
-    #     storypoint11.put()
-    #     storypoint12.put()
-    #     storypoint13.put()
-    #
-    #     #assigning a first id
-    #     rStory.first_story_point_key = storypoint1.key
-    #
-    #     #putting / updating the story now that it has a first_id
-    #     rStory.put()
-    #
-    #     #creating all of the choice points
-    #     choicepoint1 = ChoicePoint(begin_story_point_key = storypoint1.key, end_story_point_key = storypoint2.key, text = self.request.get("Choice_A"))
-    #     choicepoint2 = ChoicePoint(begin_story_point_key = storypoint1.key, end_story_point_key = storypoint3.key, text = self.request.get("Choice_B"))
-    #     choicepoint3 = ChoicePoint(begin_story_point_key = storypoint2.key, end_story_point_key = storypoint4.key, text = self.request.get("Choice_C"))
-    #     choicepoint4 = ChoicePoint(begin_story_point_key = storypoint2.key, end_story_point_key = storypoint5.key, text = self.request.get("Choice_D"))
-    #     choicepoint5 = ChoicePoint(begin_story_point_key = storypoint3.key, end_story_point_key = storypoint6.key, text = self.request.get("Choice_E"))
-    #     choicepoint6 = ChoicePoint(begin_story_point_key = storypoint3.key, end_story_point_key = storypoint7.key, text = self.request.get("Choice_F"))
-    #     choicepoint7 = ChoicePoint(begin_story_point_key = storypoint4.key, end_story_point_key = storypoint8.key, text = self.request.get("Choice_G"))
-    #     choicepoint8 = ChoicePoint(begin_story_point_key = storypoint4.key, end_story_point_key = storypoint9.key, text = self.request.get("Choice_H"))
-    #     choicepoint9 = ChoicePoint(begin_story_point_key = storypoint6.key, end_story_point_key = storypoint10.key, text = self.request.get("Choice_I"))
-    #     choicepoint10 = ChoicePoint(begin_story_point_key = storypoint6.key, end_story_point_key = storypoint11.key, text = self.request.get("Choice_J"))
-    #     choicepoint11 = ChoicePoint(begin_story_point_key = storypoint7.key, end_story_point_key = storypoint12.key, text = self.request.get("Choice_K"))
-    #     choicepoint12 = ChoicePoint(begin_story_point_key = storypoint7.key, end_story_point_key = storypoint13.key, text = self.request.get("Choice_L"))
-    #
-    #     #putting the story again
-    #     rStory.put()
-    #
-    #     #putting the storypoints now that they have corresponding choicepoints
-    #     storypoint1.put()
-    #     storypoint2.put()
-    #     storypoint3.put()
-    #     storypoint4.put()
-    #     storypoint5.put()
-    #     storypoint6.put()
-    #     storypoint7.put()
-    #     storypoint8.put()
-    #     storypoint9.put()
-    #     storypoint10.put()
-    #     storypoint11.put()
-    #     storypoint12.put()
-    #     storypoint13.put()
-    #
-    #
-    #     #putting the choicepoints
-    #     choicepoint1.put()
-    #     choicepoint2.put()
-    #     choicepoint3.put()
-    #     choicepoint4.put()
-    #     choicepoint5.put()
-    #     choicepoint6.put()
-    #     choicepoint7.put()
-    #     choicepoint8.put()
-    #     choicepoint9.put()
-    #     choicepoint10.put()
-    #     choicepoint11.put()
-    #     choicepoint12.put()
-    #
-    #
-    #
         read_template = jinjaEnv.get_template("read.html")
         self.response.write(read_template.render(read_dictionary))
-    # def post(self):
-    #     pass
-    #
-
 
 class StoryPointAPI(webapp2.RequestHandler):
     def get(self):
         id = self.request.get("id")
         print ("*")*100
         print (id)
-    #    id_key = StoryPoint.key().from_path("id", int(id))
-
         story_points = (StoryPoint
             .query()
             .fetch())
 
-        # key = StoryPoint.key().from_path("StoryPoint",id)
-        # next_story_point = Story.get()
         if story_points :
             for storypoint in story_points:
-                #print(storypoint.key.id())
                 if storypoint.key.id() == int(id):
-                    #rint("found it!")
                     next_story_point=storypoint
                     break
 
@@ -461,7 +324,6 @@ class StoryPointAPI(webapp2.RequestHandler):
 
                     next_choices.append({"text": choice.text, "end_point": choice.end_story_point_key.id()})
 
-        #     Choices = Choicepoint.query().filter().fetch()
         simple_dict = {
             "story_text": next_story_point.text,
             "choices": next_choices
@@ -474,10 +336,6 @@ app = webapp2.WSGIApplication(
         ("/", MainPage),
         ('/login', LoginHandler),
         ("/registration",registrationPage),
-        ('/create', CreateHandler),
-        ('/firstStep', FirstStepHandler),
-        ('/newStep', NewStepHandler),
-        ('/addFork', AddForkHandler),
         ('/profile',ProfileHandler),
         ('/oneform', OneFormHandler),
         ('/result', ResultHandler),

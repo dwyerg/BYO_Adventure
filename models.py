@@ -8,6 +8,7 @@ class BYOusers(ndb.Model):
 class Story(ndb.Model):
     title = ndb.StringProperty(required=True)
     first_story_point_key = ndb.KeyProperty(required = False)
+    author = ndb.StringProperty(required=True)
 
 class StoryPoint(ndb.Model):
     story_key = ndb.KeyProperty(required=True)

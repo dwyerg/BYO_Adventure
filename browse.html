@@ -10,7 +10,7 @@
 
     {% for story in theStories %}
         <br>
-        <a href="/read?id={{story.key.id()}}" "{{story.title}}" id = "adventure_name">{{story.title}} </a>
+        <a href="/read?id={{story.key.id()}}" "{{story.title}}" id = "adventure_name">{{story.title}} by {{story.author}} </a>
     {% endfor %}
 
     <form action="/read" method="get">
