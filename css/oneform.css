@@ -8,3 +8,31 @@
 #choicebox {
   width: 200px;
 }
+
+.bg-img {
+  background-image: url("https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.aarp.net%2Fcontent%2Fdam%2Faarp%2Fmoney%2Fbudgeting_savings%2F2016%2F04%2F1140-yeager-sell-your-used-books.imgcache.rev6feda141288df73e8fd100822bb375ea.jpg&imgrefurl=https%3A%2F%2Fwww.aarp.org%2Fmoney%2Fbudgeting-saving%2Finfo-2016%2Fsell-used-books-online.html&docid=lxaqSW_FFQ9GlM&tbnid=ms5Y1Agg0l0ZZM%3A&vet=10ahUKEwiZnozxnNrjAhXIWc0KHQODCe0QMwh8KAEwAQ..i&w=1140&h=655&bih=718&biw=1440&q=books&ved=0ahUKEwiZnozxnNrjAhXIWc0KHQODCe0QMwh8KAEwAQ&iact=mrc&uact=8");
+  filter: blur(6px)
+}
+
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: blue;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: blue;
+  color: white;
+}

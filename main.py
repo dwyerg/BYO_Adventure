@@ -66,6 +66,7 @@ class MainPage(webapp2.RequestHandler):
 
 class OneFormHandler(webapp2.RequestHandler):
     def get(self):
+        oneform_dict={"logout_url": users.create_logout_url('/login')}
         oneform_template = jinjaEnv.get_template("oneForm.html")
         self.response.write(oneform_template.render())
 
@@ -112,6 +113,19 @@ class FirstStepHandler(webapp2.RequestHandler):
         print("THE TITLE OF THE STORY IS" + tStory.title)
         tStory.put()
 
+<<<<<<< HEAD
+=======
+        user=users.get_current_user()
+        if user:
+            existing_user =BYOusers.query().filter(BYOusers.email == user.nickname()).get()
+        stories = Story.query().fetch()
+        myStories=[]
+        for story in stories:
+            if story.author==str(existing_user.first_name) + " " + str(existing_user.last_name):
+                myStories.append(story)
+
+
+>>>>>>> 4e9dff5d73b4295d6c6add304056abeb8dce5f3f
 
 class AddForkHandler(webapp2.RequestHandler):
     def post(self):
@@ -137,8 +151,14 @@ class ProfileHandler(webapp2.RequestHandler):
         logout_dict={
             "logout_url": users.create_logout_url('/login'),
             "firstname": existing_user.first_name,
+<<<<<<< HEAD
             "lastname": existing_user.last_name,
             "email": existing_user.email,
+=======
+            "lastname":  existing_user.last_name,
+            "email": existing_user.email,
+            "theStories": myStories
+>>>>>>> 4e9dff5d73b4295d6c6add304056abeb8dce5f3f
         }
 
         profile_template = jinjaEnv.get_template("profile.html")
@@ -148,6 +168,17 @@ class ProfileHandler(webapp2.RequestHandler):
 class ResultHandler(webapp2.RequestHandler):
     def post(self):
 
+<<<<<<< HEAD
+=======
+        sAuthor= ""
+        bAuthor= users.get_current_user()
+        if bAuthor:
+            existing_user =BYOusers.query().filter(BYOusers.email == bAuthor.nickname()).get()
+            if existing_user:
+                sAuthor=str(existing_user.first_name) + " " + str(existing_user.last_name)
+                print("This story was written by " + sAuthor)
+
+>>>>>>> 4e9dff5d73b4295d6c6add304056abeb8dce5f3f
 
         rStory= Story(title= self.request.get("adventure_name"))
         rStory.put()

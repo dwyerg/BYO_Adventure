@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="css/main.css">
     <title></title>
   </head>
+  <div class="topnav">
+  <a class="active" href="/">Home</a>
+  <a href="/browse">Browse</a>
+  <a href="/profile">Profile</a>
+  <a href="/about">Logout</a>
+</div>
     <body>
       <div class="bg-image"></div>
       <div class="bg-text">
@@ -12,6 +18,12 @@
         <h2>First name: <i>{{firstname}}</i></h2>
         <h2>Last name: <i> {{lastname}}</i></h2>
         <h2>Email: <i>{{email}}</i></h2>
+        <h3>Your Stories: <i>
+          {% for story in theStories %}
+              <br>
+              <a href="/read?id={{story.key.id()}}" "{{story.title}}" id = "adventure_name">{{story.title}} by {{story.author}} </a>
+          {% endfor %}
+        </i></h3>
         <a href="{{logout_url}}">Log out</a>
       </div>
   </body>
